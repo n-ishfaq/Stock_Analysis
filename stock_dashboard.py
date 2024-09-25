@@ -12,7 +12,6 @@ def load_data(ticker1, ticker2, start, end):
     print(df1,df2)
     return df1, df2
     
-# Function to plot stock data and indicators
 
 def plot_data(df1, df2, indicators, ticker1, ticker2):
    # Convert date strings to datetime objects
@@ -44,47 +43,43 @@ def plot_data(df1, df2, indicators, ticker1, ticker2):
     return fig,fig2
 
 
-# Event handler for button click
-# Event handler for button click
 def on_button_click():
-    # Extract values from TextInput fields
+
     ticker1 = stock1.value
     ticker2 = stock2.value
     start = date_picker_from.value
     end = date_picker_to.value
     indicators = indicator_choice.value
 
-    # Load and plot the data
     df1, df2 = load_data(ticker1, ticker2, start, end)
     p1,p2 = plot_data(df1, df2, indicators, ticker1, ticker2)
     
-    # Update the document with the new layout
+ 
     curdoc().clear()
     curdoc().add_root(column(layout,row(p1,p2)))
 
 
-# Input fields for stock tickers
+
 stock1 = TextInput(title="Stock 1", value="AAPL")
 stock2 = TextInput(title="Stock 2", value="GOOGL")
 
-# Date pickers for selecting the date range
+
 date_picker_from = DatePicker(title="Start Date", value="2021-01-01", min_date="2010-01-01", max_date=dt.datetime.now().strftime("%Y-%m-%d"))
 date_picker_to = DatePicker(title="End Date", value="2021-02-01", min_date="2010-01-01", max_date=dt.datetime.now().strftime("%Y-%m-%d"))
 
 
-# MultiChoice for selecting indicators (SMA, etc.)
 indicator_choice = MultiChoice(title="Indicators", value=["100 day SMA", "30 day SMA"], options=["100 day SMA", "30 day SMA", "Linear Regression Line"])
 
 
-# Button to load the data and trigger the plot
+
 load_button = Button(label="Load Data", button_type="success")
 load_button.on_click(on_button_click)
 
 
-# Layout containing all input elements
+
 layout = column(stock1, stock2, date_picker_from, date_picker_to, indicator_choice, load_button)
 
 
-# Add layout to the current document
+
 curdoc().add_root(layout)
 
